@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
-import 'package:vnt_app/data_persistence.dart';
-import 'package:vnt_app/network_config.dart';
-import 'package:vnt_app/utils/toast_utils.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/data_persistence.dart';
+import 'package:vnt2_app/network_config.dart';
+import 'package:vnt2_app/utils/toast_utils.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 /// 仪表盘页面

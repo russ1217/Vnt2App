@@ -12,7 +12,7 @@ $logsDir = Join-Path $outputDir "logs"
 $launcherLog = Join-Path $logsDir "launcher.log"
 $bootTraceLog = Join-Path $logsDir "boot_trace.log"
 $coreLog = Join-Path $logsDir "vnt-core.log"
-$exePath = Join-Path $outputDir "vnt_app.exe"
+$exePath = Join-Path $outputDir "vnt2_app.exe"
 $timeStamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $buildLog = Join-Path $logsDir "build_windows_$timeStamp.log"
 $reportPath = Join-Path $logsDir "windows_release_diag_$timeStamp.md"
@@ -62,7 +62,7 @@ function Get-LatestWerReports() {
   foreach ($root in $werRoots) {
     if (Test-Path $root) {
       $items += Get-ChildItem -Path $root -Recurse -Filter "Report.wer" -ErrorAction SilentlyContinue |
-        Where-Object { $_.FullName -match "vnt_app" }
+        Where-Object { $_.FullName -match "vnt2_app" }
     }
   }
 
@@ -124,7 +124,7 @@ function Get-CrashDumps() {
     return @()
   }
 
-  return Get-ChildItem -Path $crashDumpDir -Filter "vnt_app_runner.exe*.dmp" -ErrorAction SilentlyContinue |
+  return Get-ChildItem -Path $crashDumpDir -Filter "vnt2_app_runner.exe*.dmp" -ErrorAction SilentlyContinue |
     Sort-Object LastWriteTime -Descending |
     Select-Object -First 5
 }
@@ -168,7 +168,7 @@ if ($buildExitCode -eq 0 -and (Test-Path $exePath)) {
   $launchedProcess = Start-Process -FilePath $exePath -WorkingDirectory $outputDir -PassThru
   $launchStatus = "started"
   Start-Sleep -Seconds $WaitSeconds
-  $runningProcesses = Get-Process -Name "vnt_app", "vnt_app_runner" -ErrorAction SilentlyContinue |
+  $runningProcesses = Get-Process -Name "vnt2_app", "vnt2_app_runner" -ErrorAction SilentlyContinue |
     Sort-Object ProcessName
 
   if ($runningProcesses.Count -gt 0) {
@@ -182,7 +182,7 @@ $werReports = @(Get-LatestWerReports | ForEach-Object { Parse-WerReport $_.FullN
 $crashDumps = @(Get-CrashDumps)
 
 if (-not $KeepRunning) {
-  Get-Process -Name "vnt_app_runner", "vnt_app" -ErrorAction SilentlyContinue | Stop-Process -Force
+  Get-Process -Name "vnt2_app_runner", "vnt2_app" -ErrorAction SilentlyContinue | Stop-Process -Force
 }
 
 $launcherTail = @(Read-Tail -Path $launcherLog -Count 120)
@@ -227,7 +227,7 @@ foreach ($process in $runningProcesses) {
   $processLines += "- $($process.ProcessName) pid=$($process.Id) start=$($process.StartTime.ToString('yyyy-MM-dd HH:mm:ss'))"
 }
 if ($processLines.Count -eq 0) {
-  $processLines += "- no vnt_app / vnt_app_runner process alive after wait window"
+  $processLines += "- no vnt2_app / vnt2_app_runner process alive after wait window"
 }
 Add-MarkdownSection -Lines $lines -Title "Process State" -Content $processLines
 
@@ -244,7 +244,7 @@ foreach ($report in $werReports) {
   if ($report.UiTargetPath) { $werLines += "  UiTargetPath: `$($report.UiTargetPath)`" }
 }
 if ($werLines.Count -eq 0) {
-  $werLines += "- no vnt_app WER report found"
+  $werLines += "- no vnt2_app WER report found"
 }
 Add-MarkdownSection -Lines $lines -Title "WER Reports" -Content $werLines
 
@@ -253,7 +253,7 @@ foreach ($dump in $crashDumps) {
   $dumpLines += "- `$($dump.FullName)` size=$($dump.Length) last_write=$($dump.LastWriteTime.ToString('yyyy-MM-dd HH:mm:ss'))"
 }
 if ($dumpLines.Count -eq 0) {
-  $dumpLines += "- no vnt_app_runner crash dump found"
+  $dumpLines += "- no vnt2_app_runner crash dump found"
 }
 Add-MarkdownSection -Lines $lines -Title "Crash Dumps" -Content $dumpLines
 

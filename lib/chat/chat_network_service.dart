@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:vnt_app/src/rust/api/vnt_api.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/src/rust/api/vnt_api.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
 
 import 'chat_logger.dart';
 import 'chat_models.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/network_config.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/network_config.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 
 /// 配置卡片组件
 class ConfigCard extends StatelessWidget {

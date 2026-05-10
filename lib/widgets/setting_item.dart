@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 
 /// 设置项组件 - 用于设置页面
 class SettingItem extends StatelessWidget {

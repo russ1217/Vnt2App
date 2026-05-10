@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:system_tray/system_tray.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:vnt_app/data_persistence.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
-import 'package:vnt_app/network_config.dart';
+import 'package:vnt2_app/data_persistence.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/network_config.dart';
 import 'dart:isolate';
 import 'package:flutter/material.dart';
-import 'package:vnt_app/src/rust/api/vnt_api.dart';
+import 'package:vnt2_app/src/rust/api/vnt_api.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 
@@ -172,7 +172,7 @@ class SystemTrayManager {
     // Linux 上 setToolTip 会重置图标，需要重新设置
     if (Platform.isLinux) {
       try {
-        await systemTray.setImage('/tmp/vnt_app_icon.png');
+        await systemTray.setImage('/tmp/vnt2_app_icon.png');
       } catch (e) {
         debugPrint('设置托盘图标失败: $e');
       }

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vnt_app/chat/chat_network_service.dart';
+import 'package:vnt2_app/chat/chat_network_service.dart';
 
 void main() {
   group('ChatNetworkService.isRetryableStartError', () {

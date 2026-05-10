@@ -92,7 +92,7 @@ flutter run -d <device-id>
 ### 5. 测试VPN
 
 ```dart
-import 'package:vnt_app/ios_vpn_service.dart';
+import 'package:vnt2_app/ios_vpn_service.dart';
 
 // 启动VPN
 await IOSVPNService.startVPN(

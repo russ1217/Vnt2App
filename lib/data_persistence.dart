@@ -648,6 +648,17 @@ class DataPersistence {
       final configs = (jsonData['configs'] as List)
           .map((c) => NetworkConfig.fromJson(c))
           .toList();
+      final existingConfigs = await loadData();
+      final existingKeys = existingConfigs.map((c) => c.itemKey).toSet();
+      // 导入的配置 key 冲突时生成新 key，不影响原有配置
+      final usedKeys = <String>{...existingKeys};
+      for (final config in configs) {
+        if (config.itemKey.isEmpty || usedKeys.contains(config.itemKey)) {
+          config.itemKey = DateTime.now().millisecondsSinceEpoch.toString()
+              + usedKeys.length.toString();
+        }
+        usedKeys.add(config.itemKey);
+      }
       await saveData(configs);
 
       // Windows平台恢复窗口和系统配置
@@ -736,6 +747,11 @@ class DataPersistence {
       final jsonData = jsonDecode(content);
       final config = NetworkConfig.fromJson(jsonData['config']);
       final configs = await loadData();
+      final existingKeys = configs.map((c) => c.itemKey).toSet();
+      // key 冲突或为空时，给导入的配置生成新 key，不影响原有配置
+      if (config.itemKey.isEmpty || existingKeys.contains(config.itemKey)) {
+        config.itemKey = DateTime.now().millisecondsSinceEpoch.toString();
+      }
       configs.add(config);
       await saveData(configs);
       debugPrint('单个配置导入成功: ${config.configName}');
@@ -756,7 +772,7 @@ class DataPersistence {
     } else {
       // Linux/macOS 使用 SharedPreferences，显示实际路径
       final home = Platform.environment['HOME'] ?? '';
-      return 'SharedPreferences ($home/.local/share/top.wherewego.vnt_app/)';
+      return 'SharedPreferences ($home/.local/share/top.wherewego.vnt2_app/)';
     }
   }
 

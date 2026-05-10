@@ -8,9 +8,9 @@ import 'package:flutter/foundation.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
-import 'package:vnt_app/remote_assist/remote_assist_service.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
-import 'package:vnt_app/windows/windows_firewall_service.dart';
+import 'package:vnt2_app/remote_assist/remote_assist_service.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/windows/windows_firewall_service.dart';
 
 import 'chat_audio_service.dart';
 import 'chat_logger.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 
 // 全局活跃 Toast 列表
 final List<_ToastInfo> _activeToasts = [];

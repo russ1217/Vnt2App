@@ -10,7 +10,7 @@ $issFile = Join-Path $scriptDir 'windows_installer.iss'
 $appName = 'VNT GUI'
 $publisher = 'lmq8267'
 $appUrl = 'https://github.com/lmq8267/vntAPP'
-$appExe = 'vnt_app.exe'
+$appExe = 'vnt2_app.exe'
 
 if (!(Test-Path -LiteralPath (Join-Path $distDir $appExe))) {
     throw "Missing '$distDir\$appExe'. Please run scripts\build_windows.bat first."

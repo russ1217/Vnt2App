@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:vnt_app/chat/chat_models.dart';
+import 'package:vnt2_app/chat/chat_models.dart';
 
 void main() {
   group('ChatIds', () {

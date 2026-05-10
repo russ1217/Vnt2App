@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/network_config.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
-import 'package:vnt_app/src/rust/api/vnt_api.dart';
-import 'package:vnt_app/utils/toast_utils.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/network_config.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/src/rust/api/vnt_api.dart';
+import 'package:vnt2_app/utils/toast_utils.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 import 'package:json2yaml/json2yaml.dart';
-import 'package:vnt_app/system_tray_manager.dart';
+import 'package:vnt2_app/system_tray_manager.dart';
 
 /// 链接状态页面 - 显示已连接网络的设备列表与路由。
 class LinkStatusPage extends StatefulWidget {

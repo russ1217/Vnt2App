@@ -249,7 +249,7 @@
                     <span class="step-number">1</span>
                     拖动应用到 Applications 里
                 </h3>
-                <p>将 <code>vnt_app</code> 拖动到 <code>Applications</code> 文件夹里</p>
+                <p>将 <code>vnt2_app</code> 拖动到 <code>Applications</code> 文件夹里</p>
                 <p>（就像安装其他 macOS 应用一样）</p>
             </div>
 
@@ -260,7 +260,7 @@
                 </h3>
                 <p>打开终端，执行以下命令：</p>
                 <div class="command-box">
-                    sudo xattr -cr "/Applications/vnt_app.app"
+                    sudo xattr -cr "/Applications/vnt2_app.app"
                     <button class="copy-button" onclick="copyCommand()">
                         <span>📋</span>
                         <span>复制</span>
@@ -274,7 +274,7 @@
                     <span class="step-number">3</span>
                     启动应用
                 </h3>
-                <p>打开 <code>Applications</code> 文件夹，双击 <code>vnt_app</code></p>
+                <p>打开 <code>Applications</code> 文件夹，双击 <code>vnt2_app</code></p>
                 <p>首次启动时会要求输入管理员密码（用于创建 TUN 设备）</p>
                 <p>授权后，应用会以管理员权限重新启动</p>
             </div>
@@ -297,7 +297,7 @@
 
     <script>
         function copyCommand() {
-            const command = 'sudo xattr -cr "/Applications/vnt_app.app"';
+            const command = 'sudo xattr -cr "/Applications/vnt2_app.app"';
 
             // 使用现代的 Clipboard API
             if (navigator.clipboard && navigator.clipboard.writeText) {

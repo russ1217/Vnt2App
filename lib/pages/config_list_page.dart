@@ -4,22 +4,22 @@ import 'dart:convert';
 import 'dart:isolate';
 import 'dart:ui' show lerpDouble;
 import 'package:flutter/material.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/theme/color_utils.dart';
-import 'package:vnt_app/network_config.dart';
-import 'package:vnt_app/data_persistence.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
-import 'package:vnt_app/network_config_input_page.dart';
-import 'package:vnt_app/src/rust/api/vnt_api.dart';
-import 'package:vnt_app/utils/toast_utils.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/theme/color_utils.dart';
+import 'package:vnt2_app/network_config.dart';
+import 'package:vnt2_app/data_persistence.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/network_config_input_page.dart';
+import 'package:vnt2_app/src/rust/api/vnt_api.dart';
+import 'package:vnt2_app/utils/toast_utils.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:vnt_app/file_saver.dart';
+import 'package:vnt2_app/file_saver.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:cross_file/cross_file.dart';
-import 'package:vnt_app/system_tray_manager.dart';
-import 'package:vnt_app/ios_vpn_service.dart';
+import 'package:vnt2_app/system_tray_manager.dart';
+import 'package:vnt2_app/ios_vpn_service.dart';
 
 /// 配置列表页面
 class ConfigListPage extends StatefulWidget {

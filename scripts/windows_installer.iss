@@ -15,7 +15,7 @@
 #endif
 
 #ifndef MyAppExeName
-  #define MyAppExeName "vnt_app.exe"
+  #define MyAppExeName "vnt2_app.exe"
 #endif
 
 #ifndef MyRootDir

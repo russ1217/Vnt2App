@@ -355,6 +355,7 @@ async fn start_network(
             .start_tun()
             .await
             .context("启动虚拟网卡失败")?;
+        #[cfg(not(any(target_os = "android", target_os = "ios")))]
         network_manager
             .set_tun_network_ip(network_addr.ip, network_addr.prefix_len)
             .await

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vnt_app/window_close_behavior.dart';
+import 'package:vnt2_app/window_close_behavior.dart';
 
 void main() {
   group('WindowCloseBehavior', () {

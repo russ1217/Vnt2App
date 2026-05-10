@@ -10,7 +10,9 @@ use std::net::Ipv4Addr;
 use std::sync::Arc;
 use tokio::sync::mpsc::{Receiver, Sender};
 use tun_rs::async_framed::{Decoder, DeviceFramedRead, DeviceFramedWrite, Encoder};
-use tun_rs::{AsyncDevice, DeviceBuilder};
+use tun_rs::AsyncDevice;
+#[cfg(not(any(target_os = "android", target_os = "ios")))]
+use tun_rs::DeviceBuilder;
 
 #[derive(Clone)]
 pub struct DeviceIOManager {
@@ -89,7 +91,7 @@ impl DeviceIOManager {
         self.device.lock().await.0.replace(task);
         Ok(())
     }
-    #[cfg(not(target_os = "android"))]
+    #[cfg(not(any(target_os = "android", target_os = "ios")))]
     pub async fn tun_if_index(&self) -> anyhow::Result<u32> {
         let guard = self.device.lock().await;
         if let Some(v) = &guard.0 {
@@ -109,6 +111,7 @@ impl DeviceIOManager {
         {
             return Ok(());
         }
+        #[cfg(not(any(target_os = "android", target_os = "ios")))]
         dev.device
             .set_network_address(ip, prefix_len, None)
             .context("设置IP失败")?;
@@ -124,27 +127,32 @@ fn create_tun(config: DeviceConfig) -> anyhow::Result<AsyncDevice> {
         // Using an invalid fd may cause undefined behavior.
         unsafe { return Ok(AsyncDevice::from_fd(fd)?) }
     }
-    let mut builder = DeviceBuilder::new();
-    if let Some(tun_name) = config.tun_name {
-        builder = builder.name(tun_name);
-    }
-    if let Some(mtu) = config.mtu {
-        builder = builder.mtu(mtu);
-    }
-    #[cfg(windows)]
+    #[cfg(not(any(target_os = "android", target_os = "ios")))]
     {
-        builder = builder.metric(1);
+        let mut builder = DeviceBuilder::new();
+        if let Some(tun_name) = config.tun_name {
+            builder = builder.name(tun_name);
+        }
+        if let Some(mtu) = config.mtu {
+            builder = builder.mtu(mtu);
+        }
+        #[cfg(windows)]
+        {
+            builder = builder.metric(1);
+        }
+        #[cfg(target_os = "linux")]
+        {
+            builder = builder.offload(true);
+        }
+        let dev = builder.build_async().context("创建tun失败")?;
+        #[cfg(target_os = "linux")]
+        {
+            _ = dev.set_tx_queue_len(1000);
+        }
+        return Ok(dev);
     }
-    #[cfg(target_os = "linux")]
-    {
-        builder = builder.offload(true);
-    }
-    let dev = builder.build_async().context("创建tun失败")?;
-    #[cfg(target_os = "linux")]
-    {
-        _ = dev.set_tx_queue_len(1000);
-    }
-    Ok(dev)
+    #[cfg(any(target_os = "android", target_os = "ios"))]
+    bail!("Android/iOS 必须通过 tun_fd 创建设备")
 }
 fn create(
     task_group: &TaskGroup,

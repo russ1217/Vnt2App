@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vnt_app/network_config.dart';
+import 'package:vnt2_app/network_config.dart';
 
 void main() {
   test('旧版配置升级后仍能推导出 2.0 核心默认值', () {

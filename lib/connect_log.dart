@@ -4,13 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
-import 'package:vnt_app/utils/log_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/utils/log_utils.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/services.dart';
-import 'package:vnt_app/utils/toast_utils.dart';
-import 'package:vnt_app/file_saver.dart';
+import 'package:vnt2_app/utils/toast_utils.dart';
+import 'package:vnt2_app/file_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:share_plus/share_plus.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vnt_app/data_persistence.dart';
-import 'package:vnt_app/network_config.dart';
+import 'package:vnt2_app/data_persistence.dart';
+import 'package:vnt2_app/network_config.dart';
 
 NetworkConfig _buildConfig({
   required String itemKey,

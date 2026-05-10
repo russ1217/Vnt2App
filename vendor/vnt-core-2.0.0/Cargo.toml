@@ -45,7 +45,6 @@ reed-solomon-erasure = "6.0"
 
 serde = { version = "1.0.228", features = ["derive"] }
 rcgen = "0.14.6"
-machine-uid = "0.5.4"
 
 zerocopy = { version = "0.8.31", features = ["derive"] }
 socket2 = { version = "0.6.1", features = ["all"] }
@@ -57,3 +56,9 @@ widestring = "1.2"
 [build-dependencies]
 prost-build = "0.14"
 protoc-bin-vendored = "3.0.0"
+
+[target.x86_64-pc-windows-msvc.build-dependencies]
+thunk-rs = { version = "0.3.3", features = ["win7"] }
+
+[target.i686-pc-windows-msvc.build-dependencies]
+thunk-rs = { version = "0.3.3", features = ["win7"] }

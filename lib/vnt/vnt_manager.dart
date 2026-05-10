@@ -6,9 +6,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vnt_app/network_config.dart';
-import 'package:vnt_app/src/rust/api/vnt_api.dart';
-import 'package:vnt_app/utils/ip_utils.dart';
+import 'package:vnt2_app/network_config.dart';
+import 'package:vnt2_app/src/rust/api/vnt_api.dart';
+import 'package:vnt2_app/utils/ip_utils.dart';
 
 /// macOS 权限管理器
 class MacOSPrivilegeManager {
@@ -35,8 +35,8 @@ class MacOSPrivilegeManager {
       // 获取当前 app 的路径
       final executablePath = Platform.resolvedExecutable;
       // 获取 .app bundle 的路径
-      // 例如：/Applications/vnt_app.app/Contents/MacOS/vnt_app
-      // 需要提取到：/Applications/vnt_app.app
+      // 例如：/Applications/vnt2_app.app/Contents/MacOS/vnt2_app
+      // 需要提取到：/Applications/vnt2_app.app
       final appBundlePath = _getAppBundlePath(executablePath);
 
       if (appBundlePath == null) {
@@ -79,8 +79,8 @@ end tell
 
   /// 从可执行文件路径提取 .app bundle 路径
   static String? _getAppBundlePath(String executablePath) {
-    // 例如：/Applications/vnt_app.app/Contents/MacOS/vnt_app
-    // 需要提取：/Applications/vnt_app.app
+    // 例如：/Applications/vnt2_app.app/Contents/MacOS/vnt2_app
+    // 需要提取：/Applications/vnt2_app.app
 
     final contentsIndex = executablePath.indexOf('/Contents/MacOS/');
     if (contentsIndex == -1) {

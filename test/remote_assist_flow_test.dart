@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vnt_app/chat/chat_manager.dart';
-import 'package:vnt_app/chat/chat_models.dart';
-import 'package:vnt_app/windows/windows_firewall_service.dart';
+import 'package:vnt2_app/chat/chat_manager.dart';
+import 'package:vnt2_app/chat/chat_models.dart';
+import 'package:vnt2_app/windows/windows_firewall_service.dart';
 
 void main() {
   final manager = ChatManager.instance;

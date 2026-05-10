@@ -8,20 +8,20 @@ import 'package:screen_retriever/screen_retriever.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:system_tray/system_tray.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:vnt_app/chat/chat_manager.dart';
-import 'package:vnt_app/src/rust/frb_generated.dart';
-import 'package:vnt_app/src/rust/api/vnt_api.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/theme/theme_provider.dart';
-import 'package:vnt_app/pages/main_navigation_shell.dart';
-import 'package:vnt_app/data_persistence.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
-import 'package:vnt_app/utils/window_restore_guard.dart';
-import 'package:vnt_app/utils/log_utils.dart';
-import 'package:vnt_app/system_tray_manager.dart';
-import 'package:vnt_app/config_manager.dart';
-import 'package:vnt_app/window_close_behavior.dart';
+import 'package:vnt2_app/chat/chat_manager.dart';
+import 'package:vnt2_app/src/rust/frb_generated.dart';
+import 'package:vnt2_app/src/rust/api/vnt_api.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/theme/theme_provider.dart';
+import 'package:vnt2_app/pages/main_navigation_shell.dart';
+import 'package:vnt2_app/data_persistence.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/utils/window_restore_guard.dart';
+import 'package:vnt2_app/utils/log_utils.dart';
+import 'package:vnt2_app/system_tray_manager.dart';
+import 'package:vnt2_app/config_manager.dart';
+import 'package:vnt2_app/window_close_behavior.dart';
 
 final SystemTray systemTray = SystemTray();
 final AppWindow appWindow = AppWindow();
@@ -788,7 +788,7 @@ Future<void> initSystemTray() async {
   if (Platform.isLinux) {
     // Linux 复制到 /tmp 并设置普通用户可读权限
     try {
-      final iconFile = File('/tmp/vnt_app_icon.png');
+      final iconFile = File('/tmp/vnt2_app_icon.png');
       final byteData = await rootBundle.load('assets/app_icon.png');
       await iconFile.writeAsBytes(byteData.buffer.asUint8List());
       // 设置权限为 644 (所有用户可读)

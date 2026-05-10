@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:screen_retriever/screen_retriever.dart';
-import 'package:vnt_app/data_persistence.dart';
-import 'package:vnt_app/utils/window_restore_guard.dart';
+import 'package:vnt2_app/data_persistence.dart';
+import 'package:vnt2_app/utils/window_restore_guard.dart';
 
 void main() {
   group('WindowRestoreGuard', () {

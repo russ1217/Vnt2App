@@ -321,7 +321,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                     color: Theme.of(context)
                         .colorScheme
                         .primary
-                        .withValues(alpha: 0.1),
+                        .withOpacity(0.1),
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
@@ -680,7 +680,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: selected
-            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.08)
+            ? Theme.of(context).colorScheme.primary.withOpacity(0.08)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(12),
       ),
@@ -853,7 +853,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
+            color: Theme.of(context).dividerColor.withOpacity(0.2),
           ),
         ),
       ),
@@ -962,7 +962,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
       margin: const EdgeInsets.all(12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.08),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -1014,7 +1014,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
       margin: const EdgeInsets.all(12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.08),
+        color: Theme.of(context).colorScheme.primary.withOpacity(0.08),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
@@ -1070,11 +1070,11 @@ class _ChatRoomViewState extends State<ChatRoomView> {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: isOutgoing
-              ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.12)
+              ? Theme.of(context).colorScheme.primary.withOpacity(0.12)
               : Theme.of(context)
                   .colorScheme
                   .surfaceContainerHighest
-                  .withValues(alpha: 0.4),
+                  .withOpacity(0.4),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -1251,7 +1251,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide(
-            color: Theme.of(context).dividerColor.withValues(alpha: 0.2),
+            color: Theme.of(context).dividerColor.withOpacity(0.2),
           ),
         ),
       ),
@@ -1265,7 +1265,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                 color: Theme.of(context)
                     .colorScheme
                     .surfaceContainerHighest
-                    .withValues(alpha: 0.5),
+                    .withOpacity(0.5),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -1288,7 +1288,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                 color: Theme.of(context)
                     .colorScheme
                     .primary
-                    .withValues(alpha: 0.08),
+                    .withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Row(
@@ -1306,7 +1306,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
               margin: const EdgeInsets.only(bottom: 8),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
-                color: Colors.red.withValues(alpha: 0.08),
+                color: Colors.red.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: const Row(
@@ -1327,7 +1327,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                 color: Theme.of(context)
                     .colorScheme
                     .primary
-                    .withValues(alpha: 0.08),
+                    .withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -1356,7 +1356,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                 color: Theme.of(context)
                     .colorScheme
                     .primary
-                    .withValues(alpha: 0.08),
+                    .withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -1507,7 +1507,7 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                   children: [
                     if (connectedNetworks.length > 1) ...[
                       DropdownButtonFormField<String>(
-                        initialValue: selectedNetworkKey,
+                        value: selectedNetworkKey,
                         decoration: const InputDecoration(
                           labelText: '所属网络',
                           border: OutlineInputBorder(),

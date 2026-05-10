@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vnt_app/chat/chat_models.dart';
-import 'package:vnt_app/chat/chat_peer_labels.dart';
+import 'package:vnt2_app/chat/chat_models.dart';
+import 'package:vnt2_app/chat/chat_peer_labels.dart';
 
 void main() {
   final peer = ChatPeer(

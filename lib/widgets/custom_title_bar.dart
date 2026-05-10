@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:vnt_app/theme/app_theme.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
 
 /// 检测是否是 Windows 10 或更高版本
 bool _isWindows10OrGreater() {

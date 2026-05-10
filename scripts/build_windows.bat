@@ -11,7 +11,7 @@ set "RUST_BIN=%USERPROFILE%\.cargo\bin"
 set "RELEASE_DIR=%PROJECT_DIR%\build\windows\x64\runner\Release"
 set "DIST_DIR=%PROJECT_DIR%\dist"
 set "OUTPUT_DIR=%PROJECT_DIR%\output"
-set "LAUNCHER_EXE=%PROJECT_DIR%\windows_launcher\vnt_app.exe"
+set "LAUNCHER_EXE=%PROJECT_DIR%\windows_launcher\vnt2_app.exe"
 set "RUSTDESK_RUNTIME_DIR=%PROJECT_DIR%\third_party\rustdesk\windows\runtime"
 if not defined PUB_HOSTED_URL set "PUB_HOSTED_URL=https://pub.flutter-io.cn"
 if not defined FLUTTER_STORAGE_BASE_URL set "FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn"
@@ -87,14 +87,14 @@ robocopy "%RELEASE_DIR%" "%OUTPUT_DIR%" /MIR >nul
 if %ERRORLEVEL% GEQ 8 exit /b %ERRORLEVEL%
 
 if exist "%LAUNCHER_EXE%" (
-  copy /Y "%DIST_DIR%\vnt_app.exe" "%DIST_DIR%\vnt_app_runner.exe" >nul
+  copy /Y "%DIST_DIR%\vnt2_app.exe" "%DIST_DIR%\vnt2_app_runner.exe" >nul
   if errorlevel 1 exit /b 1
-  copy /Y "%LAUNCHER_EXE%" "%DIST_DIR%\vnt_app.exe" >nul
+  copy /Y "%LAUNCHER_EXE%" "%DIST_DIR%\vnt2_app.exe" >nul
   if errorlevel 1 exit /b 1
 
-  copy /Y "%OUTPUT_DIR%\vnt_app.exe" "%OUTPUT_DIR%\vnt_app_runner.exe" >nul
+  copy /Y "%OUTPUT_DIR%\vnt2_app.exe" "%OUTPUT_DIR%\vnt2_app_runner.exe" >nul
   if errorlevel 1 exit /b 1
-  copy /Y "%LAUNCHER_EXE%" "%OUTPUT_DIR%\vnt_app.exe" >nul
+  copy /Y "%LAUNCHER_EXE%" "%OUTPUT_DIR%\vnt2_app.exe" >nul
   if errorlevel 1 exit /b 1
 )
 

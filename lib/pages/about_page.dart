@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/utils/toast_utils.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/utils/toast_utils.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// 关于页面
@@ -14,7 +14,7 @@ class AboutPage extends StatefulWidget {
 
 class _AboutPageState extends State<AboutPage> {
   // 硬编码版本号
-  final String _version = '1.2.17';
+  final String _version = '2.0.0';
   final String _buildNumber = '1';
 
   @override
@@ -161,7 +161,7 @@ class _AboutPageState extends State<AboutPage> {
 
           // 应用名称
           Text(
-            'VNT APP',
+            'VNT2 APP',
             style: TextStyle(
               fontSize: context.fontXLarge,
               fontWeight: FontWeight.bold,
@@ -172,7 +172,7 @@ class _AboutPageState extends State<AboutPage> {
 
           // 版本号 - 可点击跳转到GitHub
           InkWell(
-            onTap: () => _launchUrl('https://github.com/lmq8267/VntApp'),
+            onTap: () => _launchUrl('https://github.com/lmq8267/Vnt2App'),
             borderRadius: BorderRadius.circular(context.cardRadius),
             child: Container(
               padding: EdgeInsets.symmetric(

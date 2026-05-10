@@ -22,7 +22,7 @@ function Resolve-AppDir {
   foreach ($candidate in $candidates) {
     try {
       $resolved = (Resolve-Path -LiteralPath $candidate -ErrorAction Stop).Path
-      if (Test-Path -LiteralPath (Join-Path $resolved "vnt_app.exe")) {
+      if (Test-Path -LiteralPath (Join-Path $resolved "vnt2_app.exe")) {
         return $resolved
       }
     } catch {
@@ -30,7 +30,7 @@ function Resolve-AppDir {
     }
   }
 
-  throw "未找到包含 vnt_app.exe 的目录，请显式传入 -AppDir"
+  throw "未找到包含 vnt2_app.exe 的目录，请显式传入 -AppDir"
 }
 
 function Ensure-Directory([string]$Path) {
@@ -65,11 +65,11 @@ function Get-ConfigContent([string]$Path) {
 
 function Stop-AppProcesses([string]$ExeDir) {
   $targets = @(
-    (Join-Path $ExeDir "vnt_app.exe"),
-    (Join-Path $ExeDir "vnt_app_runner.exe")
+    (Join-Path $ExeDir "vnt2_app.exe"),
+    (Join-Path $ExeDir "vnt2_app_runner.exe")
   ) | ForEach-Object { $_.ToLowerInvariant() }
 
-  $processes = Get-CimInstance Win32_Process -Filter "Name='vnt_app.exe' OR Name='vnt_app_runner.exe'" -ErrorAction SilentlyContinue
+  $processes = Get-CimInstance Win32_Process -Filter "Name='vnt2_app.exe' OR Name='vnt2_app_runner.exe'" -ErrorAction SilentlyContinue
   foreach ($process in $processes) {
     $path = if ($null -ne $process.ExecutablePath) {
       $process.ExecutablePath.ToLowerInvariant()
@@ -172,8 +172,8 @@ function Test-WindowVisibleOnScreens($Window, $Screens) {
 $resolvedAppDir = Resolve-AppDir -Provided $AppDir
 $logsDir = Join-Path $resolvedAppDir "logs"
 $configPath = Join-Path $resolvedAppDir "config\config.json"
-$exePath = Join-Path $resolvedAppDir "vnt_app.exe"
-$runnerPath = Join-Path $resolvedAppDir "vnt_app_runner.exe"
+$exePath = Join-Path $resolvedAppDir "vnt2_app.exe"
+$runnerPath = Join-Path $resolvedAppDir "vnt2_app_runner.exe"
 $stamp = Get-Date -Format "yyyyMMdd_HHmmss"
 $reportPath = Join-Path $logsDir "portable_launch_diag_$stamp.md"
 $launcherLog = Join-Path $logsDir "launcher.log"
@@ -195,7 +195,7 @@ foreach ($screen in $screens) {
 $process = Start-Process -FilePath $exePath -WorkingDirectory $resolvedAppDir -PassThru
 Start-Sleep -Seconds $WaitSeconds
 
-$processSnapshot = Get-CimInstance Win32_Process -Filter "Name='vnt_app.exe' OR Name='vnt_app_runner.exe'" -ErrorAction SilentlyContinue |
+$processSnapshot = Get-CimInstance Win32_Process -Filter "Name='vnt2_app.exe' OR Name='vnt2_app_runner.exe'" -ErrorAction SilentlyContinue |
   Select-Object ProcessId, Name, ExecutablePath, CommandLine
 
 $runnerProc = $processSnapshot | Where-Object {
@@ -261,7 +261,7 @@ if ($windowInfo.Count -gt 0) {
     $lines.Add("Handle=$($_.Handle) Title=$($_.Title) Rect=[$($_.Left),$($_.Top),$($_.Right),$($_.Bottom)] Size=${($_.Width)}x${($_.Height)}")
   }
 } else {
-  $lines.Add('<no visible top-level window found for vnt_app_runner.exe>')
+  $lines.Add('<no visible top-level window found for vnt2_app_runner.exe>')
 }
 $lines.Add('```')
 $lines.Add('')

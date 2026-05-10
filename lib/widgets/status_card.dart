@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 
 /// 连接状态卡片
 class StatusCard extends StatelessWidget {

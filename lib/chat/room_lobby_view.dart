@@ -205,7 +205,7 @@ class _RoomLobbyViewState extends State<RoomLobbyView> {
                     color: Theme.of(context)
                         .colorScheme
                         .primary
-                        .withValues(alpha: 0.1),
+                        .withOpacity(0.1),
                     borderRadius: BorderRadius.circular(999),
                   ),
                   child: Text(
@@ -440,7 +440,7 @@ class _RoomLobbyViewState extends State<RoomLobbyView> {
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: selected
-            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.08)
+            ? Theme.of(context).colorScheme.primary.withOpacity(0.08)
             : Colors.transparent,
         borderRadius: BorderRadius.circular(12),
       ),
@@ -544,7 +544,7 @@ class _RoomLobbyViewState extends State<RoomLobbyView> {
                   children: [
                     if (connectedNetworks.length > 1) ...[
                       DropdownButtonFormField<String>(
-                        initialValue: selectedNetworkKey,
+                        value: selectedNetworkKey,
                         decoration: const InputDecoration(
                           labelText: '所属网络',
                           border: OutlineInputBorder(),

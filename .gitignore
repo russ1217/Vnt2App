@@ -49,8 +49,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /android/local.properties
-/android/app/src/main/jniLibs/
-/android/app/src/main/jniLibs/armeabi-v7a/0
 
 # Flutter desktop/iOS/macOS generated files
 /ios/Flutter/ephemeral/

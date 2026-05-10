@@ -1,15 +1,15 @@
 import 'package:test/test.dart';
-import 'package:vnt_app/utils/windows_process_guard.dart';
+import 'package:vnt2_app/utils/windows_process_guard.dart';
 
 void main() {
   group('WindowsProcessGuard', () {
     test('parses both single object and list payloads from PowerShell', () {
       final single = parseWindowsProcessList(
-        '{"ProcessId":1234,"ExecutablePath":"C:\\\\Apps\\\\vnt_app.exe"}',
+        '{"ProcessId":1234,"ExecutablePath":"C:\\\\Apps\\\\vnt2_app.exe"}',
       );
       final list = parseWindowsProcessList(
-        '[{"ProcessId":1234,"ExecutablePath":"C:\\\\Apps\\\\vnt_app.exe"},'
-        '{"ProcessId":5678,"ExecutablePath":"D:\\\\Other\\\\vnt_app.exe"}]',
+        '[{"ProcessId":1234,"ExecutablePath":"C:\\\\Apps\\\\vnt2_app.exe"},'
+        '{"ProcessId":5678,"ExecutablePath":"D:\\\\Other\\\\vnt2_app.exe"}]',
       );
 
       expect(single.map((item) => item.pid), [1234]);
@@ -20,15 +20,15 @@ void main() {
       final processes = [
         const WindowsProcessInfo(
           pid: 100,
-          executablePath: r'C:\Apps\vnt_app.exe',
+          executablePath: r'C:\Apps\vnt2_app.exe',
         ),
         const WindowsProcessInfo(
           pid: 200,
-          executablePath: r'D:\Myproject\vnt2.0\VntcApp1.0\output\vnt_app.exe',
+          executablePath: r'D:\Myproject\vnt2.0\VntcApp1.0\output\vnt2_app.exe',
         ),
         const WindowsProcessInfo(
           pid: 300,
-          executablePath: r'D:\Myproject\vnt2.0\VntcApp1.0\dist\vnt_app.exe',
+          executablePath: r'D:\Myproject\vnt2.0\VntcApp1.0\dist\vnt2_app.exe',
         ),
       ];
 

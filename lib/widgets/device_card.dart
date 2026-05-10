@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 
 /// 设备卡片组件 - 用于房间页面显示设备列表
 class DeviceCard extends StatelessWidget {

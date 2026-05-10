@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vnt_app/remote_assist/rustdesk_runtime.dart';
+import 'package:vnt2_app/remote_assist/rustdesk_runtime.dart';
 
 void main() {
   final runtime = RustDeskRuntime.instance;

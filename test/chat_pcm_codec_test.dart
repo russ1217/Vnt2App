@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:vnt_app/chat/chat_pcm_codec.dart';
+import 'package:vnt2_app/chat/chat_pcm_codec.dart';
 
 void main() {
   group('ChatPcmCodec', () {

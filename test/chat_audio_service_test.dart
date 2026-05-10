@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-import 'package:vnt_app/chat/chat_audio_service.dart';
+import 'package:vnt2_app/chat/chat_audio_service.dart';
 
 class _FakeChatAudioBackend implements ChatAudioBackend {
   @override

@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "vnt_app_launcher"
+name = "vnt2_app_launcher"
 version = "0.1.0"

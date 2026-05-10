@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
-import 'package:vnt_app/utils/log_utils.dart';
+import 'package:vnt2_app/utils/log_utils.dart';
 
 class ChatLogger {
   ChatLogger._();

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:vnt_app/chat/chat_manager.dart';
-import 'package:vnt_app/chat/chat_models.dart';
-import 'package:vnt_app/chat/chat_view.dart';
-import 'package:vnt_app/chat/room_lobby_view.dart';
-import 'package:vnt_app/network_config.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/chat/chat_manager.dart';
+import 'package:vnt2_app/chat/chat_models.dart';
+import 'package:vnt2_app/chat/chat_view.dart';
+import 'package:vnt2_app/chat/room_lobby_view.dart';
+import 'package:vnt2_app/network_config.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
 
 /// 房间页面 - 包含大厅、聊天室与私信三个标签。
 class RoomPage extends StatefulWidget {
@@ -88,8 +88,8 @@ class _RoomPageState extends State<RoomPage>
                       ? AppTheme.darkTextSecondary
                       : AppTheme.lightTextSecondary,
                   dividerColor: isDark
-                      ? Colors.white.withValues(alpha: 0.05)
-                      : Colors.black.withValues(alpha: 0.05),
+                      ? Colors.white.withOpacity(0.05)
+                      : Colors.black.withOpacity(0.05),
                   labelStyle: TextStyle(
                     fontSize: context.buttonFontSize,
                     fontWeight: FontWeight.w600,
@@ -142,7 +142,7 @@ class _RoomPageState extends State<RoomPage>
           height: context.iconXLarge,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [primaryColor, primaryColor.withValues(alpha: 0.7)],
+              colors: [primaryColor, primaryColor.withOpacity(0.7)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -200,7 +200,7 @@ class _RoomPageState extends State<RoomPage>
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.08),
+              color: Colors.black.withOpacity(isDark ? 0.2 : 0.08),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),

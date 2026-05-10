@@ -1,19 +1,19 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:vnt_app/theme/app_theme.dart';
-import 'package:vnt_app/theme/theme_provider.dart';
-import 'package:vnt_app/data_persistence.dart';
-import 'package:vnt_app/utils/toast_utils.dart';
-import 'package:vnt_app/utils/responsive_utils.dart';
+import 'package:vnt2_app/theme/app_theme.dart';
+import 'package:vnt2_app/theme/theme_provider.dart';
+import 'package:vnt2_app/data_persistence.dart';
+import 'package:vnt2_app/utils/toast_utils.dart';
+import 'package:vnt2_app/utils/responsive_utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:vnt_app/file_saver.dart';
+import 'package:vnt2_app/file_saver.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vnt_app/connect_log.dart';
-import 'package:vnt_app/vnt/vnt_manager.dart';
-import 'package:vnt_app/system_tray_manager.dart';
-import 'package:vnt_app/window_close_behavior.dart';
+import 'package:vnt2_app/connect_log.dart';
+import 'package:vnt2_app/vnt/vnt_manager.dart';
+import 'package:vnt2_app/system_tray_manager.dart';
+import 'package:vnt2_app/window_close_behavior.dart';
 
 /// 设置页面
 class SettingsPage extends StatefulWidget {
@@ -60,7 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
           : Platform.environment['HOME'] ?? '';
       if (home.isNotEmpty) {
         final fileExists =
-            await File('$home/.config/autostart/vnt_app.desktop').exists();
+            await File('$home/.config/autostart/vnt2_app.desktop').exists();
         _autoStart = fileExists;
         // 同步到持久化存储
         if (_autoStart != (await _dataPersistence.loadAutoStart() ?? false)) {
@@ -186,7 +186,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     final autostartDir = '$home/.config/autostart';
-    final desktopFile = '$autostartDir/vnt_app.desktop';
+    final desktopFile = '$autostartDir/vnt2_app.desktop';
 
     try {
       if (enable) {

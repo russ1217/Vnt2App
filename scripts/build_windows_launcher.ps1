@@ -41,10 +41,10 @@ try {
         "call `"$vsDevCmd`" -arch=x64 >nul",
         "if errorlevel 1 exit /b %errorlevel%",
         "cd /d `"$launcherDir`"",
-        "del /q vnt_app_launcher.obj >nul 2>nul",
-        "cl /nologo /c /O2 /MD /utf-8 /TC vnt_app_launcher.c",
+        "del /q vnt2_app_launcher.obj >nul 2>nul",
+        "cl /nologo /c /O2 /MD /utf-8 /TC vnt2_app_launcher.c",
         "if errorlevel 1 exit /b %errorlevel%",
-        "link /nologo /SUBSYSTEM:WINDOWS /OUT:vnt_app.exe vnt_app_launcher.obj vnt_app_launcher.res user32.lib advapi32.lib shell32.lib comctl32.lib",
+        "link /nologo /SUBSYSTEM:WINDOWS /OUT:vnt2_app.exe vnt2_app_launcher.obj vnt2_app_launcher.res user32.lib advapi32.lib shell32.lib comctl32.lib",
         "if errorlevel 1 exit /b %errorlevel%"
     )
     Set-Content -LiteralPath $tempCmd -Value $scriptLines -Encoding ASCII
@@ -57,4 +57,4 @@ try {
     Remove-Item -LiteralPath $tempCmd -Force -ErrorAction SilentlyContinue
 }
 
-Write-Host "[OK] Launcher rebuilt: $launcherDir\vnt_app.exe"
+Write-Host "[OK] Launcher rebuilt: $launcherDir\vnt2_app.exe"

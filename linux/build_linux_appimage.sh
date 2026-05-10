@@ -9,37 +9,57 @@ step() { echo -e "\n\033[1;36m>>> $1\033[0m\n"; }
 step "安装系统依赖"
 apt-get update -q
 apt-get install -y --no-install-recommends --no-install-suggests \
-  curl git cmake ninja-build pkg-config clang \
+  curl git ninja-build pkg-config clang \
   libgtk-3-dev libblkid-dev liblzma-dev \
   libappindicator3-dev libkeybinder-3.0-dev \
   libsecret-1-dev libjsoncpp-dev \
+  libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
+  gstreamer1.0-plugins-good gstreamer1.0-plugins-bad \
   ca-certificates wget file xz-utils unzip || {
     echo "部分包安装失败，尝试修复..."
     apt-get install -f -y
   }
 
+step "安装 CMake 3.20+"
+CMAKE_ARCH="x86_64"
+if [ "${APPIMAGE_ARCH}" = "aarch64" ]; then
+  CMAKE_ARCH="aarch64"
+fi
+wget -q "https://github.com/Kitware/CMake/releases/download/v3.20.6/cmake-3.20.6-linux-${CMAKE_ARCH}.sh" -O /tmp/cmake.sh
+sh /tmp/cmake.sh --skip-license --prefix=/usr/local
+export PATH="/usr/local/bin:$PATH"
+cmake --version
+
 step "安装 Flutter 3.24.5"
 git clone --depth 1 --branch 3.24.5 \
   https://github.com/flutter/flutter.git /opt/flutter
 export PATH="/opt/flutter/bin:$PATH"
-flutter precache --linux
+flutter precache --linux -v
 flutter --version
 
-step "安装 Rust 1.77.2（强制固定，禁止升级）"
+step "安装 Rust"
 export CARGO_HOME=/opt/cargo
 export RUSTUP_HOME=/opt/rustup
 export PATH="/opt/cargo/bin:$PATH"
 curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | \
-  sh -s -- -y --default-toolchain 1.77.2 --no-modify-path \
-    --no-update-default-toolchain
-rustup set auto-self-update disable
-rustup default 1.77.2
+  sh -s -- -y --no-modify-path
 rustc -V
 
 step "构建 Flutter Linux Release"
 flutter config --no-analytics
 flutter pub get
-flutter build linux --release -v
+# 加 VERBOSE 让 ninja 输出完整错误
+flutter build linux --release -v 2>&1 | tee /tmp/flutter_build.log || {
+  echo "=== 构建失败，ninja 详细日志 ==="
+  # 找 ninja 日志
+  find . -name "*.log" -path "*/build/*" 2>/dev/null | head -5 | xargs cat 2>/dev/null || true
+  # 找 CMake 错误
+  find build -name "CMakeFiles" -type d 2>/dev/null | while read d; do
+    find "$d" -name "*.log" | xargs cat 2>/dev/null || true
+  done
+  cat /tmp/flutter_build.log
+  exit 1
+}
 
 step "下载并解压 appimagetool"
 APPIMAGETOOL_URL="https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${APPIMAGE_ARCH}.AppImage"
@@ -52,14 +72,14 @@ mv squashfs-root appimagetool-extracted
 step "构建 AppDir"
 mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
 cp -r ${BUNDLE}/. AppDir/
-cp assets/app_icon.png AppDir/vnt_app.png
-cp assets/app_icon.png AppDir/usr/share/icons/hicolor/256x256/apps/vnt_app.png
+cp assets/app_icon.png AppDir/vnt2_app.png
+cp assets/app_icon.png AppDir/usr/share/icons/hicolor/256x256/apps/vnt2_app.png
 
-cat > AppDir/vnt_app.desktop << EOF
+cat > AppDir/vnt2_app.desktop << EOF
 [Desktop Entry]
 Name=VNT App
-Exec=vnt_app
-Icon=vnt_app
+Exec=vnt2_app
+Icon=vnt2_app
 Type=Application
 Categories=Network;
 EOF
@@ -81,12 +101,12 @@ if [ "$(id -u)" -ne 0 ]; then
     ' bash "$@"
 fi
 
-exec "$HERE/vnt_app" "$@"
+exec "$HERE/vnt2_app" "$@"
 EOF
 chmod +x AppDir/AppRun
 
 step "打包 AppImage（arch=${APPIMAGE_ARCH}）"
 ARCH=${APPIMAGE_ARCH} ./appimagetool-extracted/AppRun AppDir \
-  vntApp-linux-${APPIMAGE_ARCH}.AppImage
+  vnt2_app-linux-${APPIMAGE_ARCH}.AppImage
 
-step "完成 ✓ vntApp-linux-${APPIMAGE_ARCH}.AppImage"
+step "完成 ✓ vnt2_app-linux-${APPIMAGE_ARCH}.AppImage"
