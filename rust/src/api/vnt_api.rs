@@ -132,7 +132,7 @@ impl VntApi {
         }
 
         let (network_manager, network_addr) =
-            match runtime.block_on(async { start_network(core_config, task_group).await }) {
+            match runtime.block_on(async { start_network(core_config, task_group, &call).await }) {
                 Ok(value) => value,
                 Err(err) => {
                     call.emit_error(error_info_from_error(&err));
@@ -336,6 +336,7 @@ impl VntApi {
 async fn start_network(
     core_config: CoreConfig,
     task_group: vnt_core::utils::task_control::TaskGroup,
+    call: &VntApiCallback,
 ) -> anyhow::Result<(NetworkManager, NetworkAddr)> {
     let mut network_manager = NetworkManager::create_network(Box::new(core_config), task_group)
         .await
@@ -351,15 +352,37 @@ async fn start_network(
         }
     };
     if !network_manager.is_no_tun() {
-        network_manager
-            .start_tun()
-            .await
-            .context("启动虚拟网卡失败")?;
+        #[cfg(any(target_os = "android", target_os = "ios"))]
+        {
+            // Android/iOS 需要通过 generate_tun_fn 获取 tun_fd
+            let device_config = RustDeviceConfig {
+                virtual_ip: network_addr.ip.to_string(),
+                virtual_netmask: prefix_to_netmask(network_addr.prefix_len).to_string(),
+                virtual_gateway: network_addr.gateway.to_string(),
+                virtual_network: format!("{}/{}", network_addr.ip, network_addr.prefix_len),
+                external_route: vec![],
+            };
+            let tun_fd = call.generate_tun(device_config).await;
+            log::info!("Android/iOS 获取 tun_fd: {}", tun_fd);
+            
+            #[cfg(unix)]
+            network_manager
+                .start_tun_fd(Some(tun_fd as i32))
+                .await
+                .context("启动虚拟网卡失败")?;
+        }
+        
         #[cfg(not(any(target_os = "android", target_os = "ios")))]
-        network_manager
-            .set_tun_network_ip(network_addr.ip, network_addr.prefix_len)
-            .await
-            .context("设置虚拟网卡 IP 失败")?;
+        {
+            network_manager
+                .start_tun()
+                .await
+                .context("启动虚拟网卡失败")?;
+            network_manager
+                .set_tun_network_ip(network_addr.ip, network_addr.prefix_len)
+                .await
+                .context("设置虚拟网卡 IP 失败")?;
+        }
     }
     Ok((network_manager, network_addr))
 }
@@ -785,6 +808,12 @@ impl VntApiCallback {
             let f = &inner.error_fn;
             f(info)
         });
+    }
+
+    async fn generate_tun(&self, config: RustDeviceConfig) -> u32 {
+        let inner = self.inner.clone();
+        let f = &inner.generate_tun_fn;
+        f(config).await
     }
 }
 

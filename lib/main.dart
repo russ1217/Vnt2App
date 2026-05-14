@@ -8,7 +8,6 @@ import 'package:screen_retriever/screen_retriever.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:system_tray/system_tray.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:vnt2_app/chat/chat_manager.dart';
 import 'package:vnt2_app/src/rust/frb_generated.dart';
 import 'package:vnt2_app/src/rust/api/vnt_api.dart';
 import 'package:vnt2_app/theme/app_theme.dart';
@@ -399,10 +398,6 @@ class _MainAppState extends State<MainApp> with WindowListener {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      unawaited(_warmUpChatManager());
-    });
-
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       initSystemTray();
       // 设置窗口关闭拦截
@@ -513,14 +508,6 @@ class _MainAppState extends State<MainApp> with WindowListener {
         VntAppCall.updateWidgetAndTile(vntManager.hasConnection());
       }
     });
-  }
-
-  Future<void> _warmUpChatManager() async {
-    try {
-      await chatManager.init();
-    } catch (e) {
-      debugPrint('聊天室后台初始化失败: $e');
-    }
   }
 
   @override

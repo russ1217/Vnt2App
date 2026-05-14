@@ -8,7 +8,6 @@ import 'package:vnt2_app/network_config.dart';
 import 'package:vnt2_app/data_persistence.dart';
 import 'package:vnt2_app/pages/dashboard_page.dart';
 import 'package:vnt2_app/pages/link_status_page.dart';
-import 'package:vnt2_app/pages/room_page.dart';
 import 'package:vnt2_app/pages/config_list_page.dart';
 import 'package:vnt2_app/pages/settings_page.dart';
 import 'package:vnt2_app/pages/about_page.dart';
@@ -46,10 +45,6 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
         icon: Icons.dashboard_outlined,
         activeIcon: Icons.dashboard,
         label: '仪表盘'),
-    _NavItem(
-        icon: Icons.meeting_room_outlined,
-        activeIcon: Icons.meeting_room,
-        label: '房间'),
     _NavItem(icon: Icons.link_outlined, activeIcon: Icons.link, label: '链接状态'),
     _NavItem(
         icon: Icons.folder_outlined, activeIcon: Icons.folder, label: '配置'),
@@ -850,16 +845,7 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
             setState(() => _selectedIndex = 3);
           },
         ),
-        // 1: 房间
-        RoomPage(
-          selectedConfig: _selectedConfig,
-          onDisconnect: _selectedConfig != null
-              ? () {
-                  setState(() => _selectedConfig = null);
-                }
-              : null,
-        ),
-        // 2: 链接状态
+        // 1: 链接状态
         LinkStatusPage(
           selectedConfig: _selectedConfig,
           onDisconnect: _selectedConfig != null
@@ -868,12 +854,12 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
                 }
               : null,
         ),
-        // 3: 配置
+        // 2: 配置
         ConfigListPage(
           onConfigSelected: (config) {
             setState(() {
               _selectedConfig = config;
-              _selectedIndex = 1; // 跳转到房间页面
+              _selectedIndex = 2; // 跳转到链接状态页面
             });
           },
           onRefreshCallback: (callback) {
@@ -884,7 +870,7 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
             _refreshSettings?.call();
           },
         ),
-        // 4: 设置
+        // 3: 设置
         SettingsPage(
           themeMode: themeProvider?.themeMode ?? ThemeMode.system,
           onThemeModeChanged: (mode) {
@@ -898,7 +884,7 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
             _refreshSettings = callback;
           },
         ),
-        // 5: 关于
+        // 4: 关于
         const AboutPage(),
       ],
     );
