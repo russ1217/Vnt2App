@@ -68,6 +68,8 @@ public class MyVpnService extends VpnService {
         if (vpnService != null) {
             vpnService.stopSelf();
         }
+        // 现在可以安全地关闭 vpnInterface
+        // 因为 Rust 层使用的是 dup() 复制的 fd,两者互不干扰
         if (vpnInterface != null) {
             try {
                 vpnInterface.close();

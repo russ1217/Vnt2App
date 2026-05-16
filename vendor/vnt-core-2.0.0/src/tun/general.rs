@@ -125,6 +125,26 @@ fn create_tun(config: DeviceConfig) -> anyhow::Result<AsyncDevice> {
     if let Some(fd) = config.tun_fd {
         // SAFETY: Caller must ensure fd is a valid, open file descriptor for a TUN device.
         // Using an invalid fd may cause undefined behavior.
+        
+        // 在 Android/iOS 平台上,我们需要复制文件描述符
+        // 因为原始的 fd 由系统(Java/Swift)管理,我们不能直接接管它的所有权
+        // 通过 dup() 创建一个副本,Rust 层管理副本的生命周期
+        #[cfg(any(target_os = "android", target_os = "ios"))]
+        {
+            use std::os::unix::io::RawFd;
+            extern "C" {
+                fn dup(fd: RawFd) -> RawFd;
+            }
+            let duplicated_fd = unsafe { dup(fd) };
+            if duplicated_fd < 0 {
+                return Err(std::io::Error::last_os_error().into());
+            }
+            log::info!("Android/iOS: 复制文件描述符 {} -> {}", fd, duplicated_fd);
+            unsafe { return Ok(AsyncDevice::from_fd(duplicated_fd)?) }
+        }
+        
+        // 其他 Unix 平台直接使用原始 fd
+        #[cfg(not(any(target_os = "android", target_os = "ios")))]
         unsafe { return Ok(AsyncDevice::from_fd(fd)?) }
     }
     #[cfg(not(any(target_os = "android", target_os = "ios")))]
