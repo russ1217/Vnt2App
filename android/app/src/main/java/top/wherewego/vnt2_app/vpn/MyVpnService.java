@@ -7,9 +7,11 @@ import android.net.ConnectivityManager;
 import android.net.VpnService;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
+import android.system.Os;
 import android.system.OsConstants;
 import android.util.Log;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 
 import io.flutter.plugin.common.MethodChannel;
@@ -125,7 +127,30 @@ public class MyVpnService extends VpnService {
             Log.e(TAG, "Error establishing VPN interface", e);
             throw e;
         }
-        return vpnInterface.getFd();
+        
+        // 重要：使用 dup() 复制文件描述符
+        // 这样 Rust 层拥有副本的所有权，可以安全关闭而不影响 ParcelFileDescriptor
+        // 这解决了 Android 16 fdsan 检测到的所有权冲突问题
+        FileDescriptor originalFd = vpnInterface.getFileDescriptor();
+        try {
+            FileDescriptor duplicatedFd = Os.dup(originalFd);
+            int fdInt = getFileDescriptorInt(duplicatedFd);
+            Log.i(TAG, "Duplicated VPN fd: " + fdInt);
+            return fdInt;
+        } catch (android.system.ErrnoException e) {
+            Log.e(TAG, "Failed to duplicate VPN fd", e);
+            throw new RuntimeException("Failed to duplicate VPN file descriptor", e);
+        }
+    }
+
+    private int getFileDescriptorInt(FileDescriptor fd) {
+        try {
+            java.lang.reflect.Field field = fd.getClass().getDeclaredField("descriptor");
+            field.setAccessible(true);
+            return field.getInt(fd);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to get file descriptor int", e);
+        }
     }
 
     @Override
